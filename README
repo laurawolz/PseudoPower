@@ -1,0 +1,85 @@
+CODE TO COMPUTE ANGULAR POWER SPECTRA OF GALAXY DISTRIBUTION ON A SPHERE.
+
+PARTIAL SKY COVERAGE IS CORRECTED WITH THE PEEBLES APPROXIMATION.
+
+###########################################################################
+Makefile:
+
+Please adapt all pathes in the Makefile;
+You need a Healpix distribution
+
+Compile each program such as
+
+make codename=drivername
+
+For example, for the file CreateMask.cpp as drivername
+
+make codename=CreateMask
+
+
+#############################################################################
+Read the manual for each driver as
+
+./drivername -h
+
+For example, for the manual of the file CreateMask.cpp as drivername
+
+./CreateMask -h
+
+It will tell you how to use it
+
+
+#############################################################################
+SHORT DESCRIPTION OF EACH CODE:
+
+*Cat2Map* converts galaxy catalogue of (RA DEC) of each galaxy into Healpix map
+
+*Map2Alm* calculates the spherical harmonic coefficients of the map
+
+*Alm2Cl* calculates the angular power spectrum C(l) of the alm; for partial sky Peebles correction
+
+*CreateMask* creates masks in Helapix format accoring to survey window. Either 1 or 0.
+
+*IlmJlm* calculates the Ilm and Jlm coeffiecients of a given mask; Needed for the Peebles correction
+
+*SmoothAlm* convolves given alm with a Gaussian kernel
+
+*RotateAlm* rotates given alm
+
+*RandomReal* creates a Gaussian random realisation in Healpix format
+
+
+#############################################################################
+
+To calculate the power spectrum of a galaxy catalogue, run the following pipeline
+
+***FULL SKY
+
+1. Read catalogue into Healpix map with
+./Cat2Map
+
+2. Calculate the alms with
+./Map2Alm
+
+3. Calculate the Cl with
+./Alm2Cl
+
+################################################################################
+***PARTIAL SKY COVERAGE
+
+1. Read catalogue into Healpix map with
+./Cat2Map
+
+2. Create a mask as Healpix map acc. to sky coverage with
+./CreateMask
+
+3. Calculate the Ilm and Jlm for the Peebles correction with
+./IlmJlm
+
+4.  Calculate the alms with
+./Map2Alm
+
+5. Calculate the Cl with
+./Alm2Cl
+
+
